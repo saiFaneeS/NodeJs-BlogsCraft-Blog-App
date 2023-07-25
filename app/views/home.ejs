@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <%- include('./partials/head') %>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-4">
+      <% if (!locals.user) { %>
+      <div class="container">
+        <p style="color: #1c1c1c" class="text-center">
+          You are not Logged in!<br /><a href="/user/signin">Signin</a> or
+          <a href="/user/signup">Create Account</a> to write Blogs.
+        </p>
+      </div>
+      <% } %>
+      <h2>Blogs</h2>
+
+      <% if (locals.blogs) { %>
+      <p style="color: #555">
+        Browse through content written by other users on this platform.
+      </p>
+      <% } %>
+
+      <div class="row row-cols-4 mt-4">
+        <% blogs.forEach(blog => { %>
+        <div class="col mb-3">
+          <div class="card col" style="width: 18rem; max-height: 25rem; overflow: hidden;">
+            <div style="height: 10rem; overflow: hidden">
+              <img src="<%= blog.coverImage %>" class="card-img-top" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <!-- <p class="card-text"><%= blog.body %></p> -->
+              <a href="/blog/<%= blog._id %>" class="btn btn-sm btn-primary mt-2">View</a>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
